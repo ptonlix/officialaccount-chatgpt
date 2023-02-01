@@ -9,12 +9,11 @@ English | [简体中文](./README-zh.md)
 	<p>
 </p>
 <p align="center">
-<img alt="Go" src="https://img.shields.io/badge/Go-1.7%2B-blue">
-<img alt="OpenAI" src="https://img.shields.io/badge/OpenAI-API-brightgreeni">
-<img alt="Redis" src="https://img.shields.io/badge/Redis-6.2%2B-yellowgreen">
-<img alt="WechatSDK" src="https://img.shields.io/badge/
-WechatSDK-2.0-orange">
-<img alt="license" src="https://img.shields.io/badge/license-Apache-lightgrey">
+<img alt="Go" src="https://img.shields.io/badge/Go-1.7%2B-blue"/>
+<img alt="OpenAI" src="https://img.shields.io/badge/OpenAI-API-brightgreeni"/>
+<img alt="Redis" src="https://img.shields.io/badge/Redis-6.2%2B-yellowgreen"/>
+<img alt="WechatSDK" src="https://img.shields.io/badge/Wechatsdk-2.0-blue"/>
+<img alt="license" src="https://img.shields.io/badge/license-Apache-lightgrey"/>
 </p>
 
 > ChatGPT是由人工智能研究实验室[OpenAI](https://baike.baidu.com/item/OpenAI/19758408?fromModule=lemma_inlink)在2022年11月30日发布的全新聊天机器人模型，一款[人工智能](https://baike.baidu.com/item/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/9180?fromModule=lemma_inlink)技术驱动的自然语言处理工具。它能够通过学习和理解人类的语言来进行对话，还能根据聊天的上下文进行互动，真正像人类一样来聊天交流，甚至能完成撰写邮件、视频脚本、文案、翻译、代码等任务。同时也引起无数网友沉迷与ChatGPT聊天，成为大家讨论的火爆话题。
