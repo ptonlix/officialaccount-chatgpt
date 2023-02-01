@@ -1,5 +1,5 @@
 # Officialaccount-ChatGPT
-简体中文
+English | [简体中文](./README-zh.md)
 <p>
 	<p align="center">
 		<img height=280 src="./doc/image/gopher.png">
@@ -13,13 +13,13 @@
 <img alt="OpenAI" src="https://img.shields.io/badge/OpenAI-API-brightgreeni">
 <img alt="Redis" src="https://img.shields.io/badge/Redis-6.2%2B-yellowgreen">
 <img alt="WechatSDK" src="https://img.shields.io/badge/
-WechatSDK-2.0%2B-orange">
+WechatSDK-2.0-orange">
 <img alt="license" src="https://img.shields.io/badge/license-Apache-lightgrey">
 </p>
 
 > ChatGPT是由人工智能研究实验室[OpenAI](https://baike.baidu.com/item/OpenAI/19758408?fromModule=lemma_inlink)在2022年11月30日发布的全新聊天机器人模型，一款[人工智能](https://baike.baidu.com/item/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/9180?fromModule=lemma_inlink)技术驱动的自然语言处理工具。它能够通过学习和理解人类的语言来进行对话，还能根据聊天的上下文进行互动，真正像人类一样来聊天交流，甚至能完成撰写邮件、视频脚本、文案、翻译、代码等任务。同时也引起无数网友沉迷与ChatGPT聊天，成为大家讨论的火爆话题。
 
-# 01.前言
+## 01.前言
 
 大家好，我是baird～
 
@@ -38,16 +38,16 @@ WechatSDK-2.0%2B-orange">
 > 直接官网体验参考地址 [体验教程](https://zhuanlan.zhihu.com/p/589201080)  
 > 微信机器人开发参考 [参考地址](https://blog.csdn.net/zhayujie5200/article/details/128359055)  
 
-# 02.准备阶段
+## 02.准备阶段
 
-## 准备OpenAI账号
+### 准备OpenAI账号
 
 1. 自己注册  直接上链接供大家参考 [注册参考地址](https://51.ruyo.net/18252.html)
 2. 万能淘宝  淘宝直接搜ChatGPT账号，9.9带回家
 
 自己注册会遇到手机验证码验证问题，淘宝也有此服务，但为了省时间，我直接选择了购买账号。
 
-## 获取API KEY
+### 获取API KEY
 
 登陆账号则前往 [API管理页面](https://beta.openai.com/account/api-keys) 创建一个 API Key 并保存下来，后面需要在项目中配置这个key。
 
@@ -57,13 +57,13 @@ WechatSDK-2.0%2B-orange">
 
 ![WX20230131-090155@2x.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a2f40b26056e4f91a3686f0721144a7e~tplv-k3u1fbpfcp-watermark.image?)
 
-## 微信公众号
+### 微信公众号
 
 微信公众平台上注册或使用测试公众号
 
-# 03.开发阶段
+## 03.开发阶段
 
-## 流程框架
+### 流程框架
 
 ![frame.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/806510eb22fc4bb88d123f35b1990c52~tplv-k3u1fbpfcp-watermark.image?)
 
@@ -72,7 +72,7 @@ WechatSDK-2.0%2B-orange">
 
 整体流程比较简单，主要关注的点是微信公众号开发流程，需要验证AppSecret等信息，详情可参考[微信开发文档](https://developers.weixin.qq.com/doc/offiaccount/Getting_Started/Overview.html)
 
-## 软件框架
+### 软件框架
 这里我采用 Go语言进行开发，使用Beego+WechatSDK快速开发
 >Beego: https://github.com/beego/beego  
 >Go Wechat SDK: https://github.com/silenceper/wechat
@@ -81,7 +81,7 @@ WechatSDK-2.0%2B-orange">
 
 ![software.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1d30b314de9a406da65da9f9d974ab9c~tplv-k3u1fbpfcp-watermark.image?)
 
-## 开发细节
+### 开发细节
 
 - 主要处理逻辑如下，这里有个问题需要注意。微信公众号回复的超时时间是5s，而访问OpenAI的API处理时间往往是超过5秒的，这里需要用到异步处理。获取用户的openid，调用微信API再把信息返回给该用户
 
@@ -121,7 +121,7 @@ gpttemperature = 0.7
 - 微信公众号调试时，使用内网穿透软件能方便在本地进行调试   
 这里我推荐一款我在用的免费软件[netapp](https://natapp.cn/),大家可以自行查阅
 
-# 04.部署运行
+## 04.部署运行
 项目部署采用容器部署,命令如下
 ```shell
 # 生成镜像
@@ -132,7 +132,7 @@ docker run -itd -p 8080:8080 --restart always -v /root/officialaccount/conf:/app
 docker logs -f 6b05e1c81380
 ```
 
-# 05.体验环境
+## 05.体验环境
 附上我自己的公众号，关注后直接输入即可体验ChatGPT，欢迎大家体验
 <p>
 	<p align="center">
@@ -140,7 +140,7 @@ docker logs -f 6b05e1c81380
 	</p>
 </p>
 
-# 06.后续
+## 06.后续
 
 目前该项目只是一个Demo，还有很多可以优化的地方。比如，通过识别特定前缀判断是访问ChatGPT的请求，避免所有请求都访问，这块需要结合业务去考虑。  
 最后希望能给大家一点启发和帮助，感谢阅读。
