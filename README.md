@@ -10,9 +10,9 @@ English | [简体中文](./README-zh.md)
 </p>
 <p align="center">
 <img alt="Go" src="https://img.shields.io/badge/Go-1.7%2B-blue">
-<img alt="Mysql" src="https://img.shields.io/badge/OpenAI-API-brightgreeni">
+<img alt="OpenAI" src="https://img.shields.io/badge/OpenAI-API-brightgreeni">
 <img alt="Redis" src="https://img.shields.io/badge/Redis-6.2%2B-yellowgreen">
-<img alt="influxDB" src="https://img.shields.io/badge/
+<img alt="WechatSDK" src="https://img.shields.io/badge/
 WechatSDK-2.0%2B-orange">
 <img alt="license" src="https://img.shields.io/badge/license-Apache-lightgrey">
 </p>
