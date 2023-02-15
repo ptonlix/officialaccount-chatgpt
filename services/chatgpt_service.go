@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/beego/beego/v2/core/logs"
@@ -67,7 +68,7 @@ func (c *ChatGptService) Completions(msg string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	logs.Info("request gpt json string : %v", string(requestData))
+	logs.Debug("request gpt json string : %v", string(requestData))
 	req, err := http.NewRequest("POST", BASEURL+"completions", bytes.NewBuffer(requestData))
 	if err != nil {
 		return "", err
@@ -76,18 +77,21 @@ func (c *ChatGptService) Completions(msg string) (string, error) {
 	apiKey := chatgpt.ChatGptConf.Key
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Authorization", "Bearer "+apiKey)
-	client := &http.Client{Timeout: 30 * time.Second}
+	client := &http.Client{Timeout: 60 * time.Second}
 	response, err := client.Do(req)
 	if err != nil {
+		logs.Warn("请求GPT出错了, details: %v", err)
 		return "", err
 	}
 	defer response.Body.Close()
 	if response.StatusCode != 200 {
 		body, _ := ioutil.ReadAll(response.Body)
-		return "", fmt.Errorf("请求GTP出错了，gpt api status code not equals 200,code is %d ,details:  %v ", response.StatusCode, string(body))
+		logs.Warn("请求GPT出错了, http code: %d, details: %v", response.StatusCode, string(body))
+		return "", fmt.Errorf("gpt api status code not equals 200,code is %d", response.StatusCode)
 	}
 	body, err := ioutil.ReadAll(response.Body)
 	if err != nil {
+		logs.Warn("GTP读取数据失败, details: %v")
 		return "", err
 	}
 
@@ -95,6 +99,7 @@ func (c *ChatGptService) Completions(msg string) (string, error) {
 
 	err = json.Unmarshal(body, gptResponseBody)
 	if err != nil {
+		logs.Warn("GTP数据解析错误")
 		return "", err
 	}
 
@@ -102,6 +107,13 @@ func (c *ChatGptService) Completions(msg string) (string, error) {
 	if len(gptResponseBody.Choices) > 0 {
 		reply = gptResponseBody.Choices[0].Text
 	}
-	logs.Info("gpt response text: %s ", reply)
+	reply = c.handleText(reply)
+	logs.Debug("gpt response text: %s ", reply)
 	return reply, nil
+}
+
+// 处理回复的数据，除去Prompt数据，使回复更合理
+func (c *ChatGptService) handleText(s string) string {
+	index := strings.Index(s, "\n\n") //定位两个换行符
+	return s[index+2:]
 }

@@ -1,6 +1,8 @@
 package services
 
 import (
+	"time"
+
 	"github.com/beego/beego/v2/core/logs"
 	wechatConfig "github.com/ptonlix/officialaccount-chatgpt/init/wechat"
 	wechat "github.com/silenceper/wechat/v2"
@@ -39,13 +41,16 @@ func (oa *OfficialAccountService) Handle(msg *message.MixMessage) *message.Reply
 
 func (oa *OfficialAccountService) SendSyncMessage() {
 	gptService := new(ChatGptService)
-	replyText, err := gptService.Completions(oa.ReqMsg)
+	replyText, err := DoRetryHTTP(func() (interface{}, error) {
+		return gptService.Completions(oa.ReqMsg)
+	}, 3, time.Second*2)
 	if err != nil {
+		logs.Error("Retry GPT HTTP API Failed!")
 		replyText = "GPT服务器异常，请稍后重试。。。"
 	}
 	offAccService := NewOfficialAccountService(&wechatConfig.WxConf)
 	cm := offAccService.OA.GetCustomerMessageManager()
-	data := message.NewCustomerTextMessage(oa.OpenId, replyText)
+	data := message.NewCustomerTextMessage(oa.OpenId, replyText.(string))
 	err = cm.Send(data)
 	if err != nil {
 		logs.Debug(err.Error())
