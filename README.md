@@ -124,9 +124,19 @@ gpttemperature = 0.7
 项目部署采用容器部署,命令如下
 ```shell
 # 生成镜像
-docker build -t officialaccount-chatgpt:v1 -f Dockerfile .
+docker build -t officialaccount-chatgpt:v1.5 -f Dockerfile .
 # 运行容器
-docker run -itd -p 8080:8080 --restart always -v /root/officialaccount/conf:/app/conf ptonlix/officialaccount-chatgpt:v1
+docker run -itd -p 8080:8080 --restart always -v /root/officialaccount/conf:/app/conf ptonlix/officialaccount-chatgpt:v1.5
+# 查看日志
+docker logs -f 6b05e1c81380
+```
+直接从docker hub下载
+```shell
+docker pull  ptonlix/officialaccount-chatgpt:v1.5 
+
+# 运行容器
+docker run -itd -p 8080:8080 --restart always -v /root/officialaccount/conf:/app/conf ptonlix/officialaccount-chatgpt:v1.5
+
 # 查看日志
 docker logs -f 6b05e1c81380
 ```
