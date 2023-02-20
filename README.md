@@ -109,12 +109,17 @@ func (o *OfficialaccountController) AnyHandle() {
 gptmodel 选择哪个模型，默认可以参考text-davinci-003这个模型即可  
 gptmaxtoken 最大输入的字符数，默认最大为2048。输入越长，收费越高，具体参考OpenAI的API文档  
 gpttemperature 数据范围在0～1 数据越高代表回答的随机性越大，感兴趣的朋友可以自行调整体验
+- Redis 
+ redisaddr中默认配置redis是docker network中Redis容器的别名
 ```ini
 #chatgpt
 gptkey = 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
 gptmodel =  "text-davinci-003"
 gptmaxtoken = 1024
 gpttemperature = 0.7
+
+#redis
+redisaddr = redis:6379  
 ```
 
 - 微信公众号调试时，使用内网穿透软件能方便在本地进行调试   
@@ -124,18 +129,27 @@ gpttemperature = 0.7
 项目部署采用容器部署,命令如下
 ```shell
 # 生成镜像
-docker build -t officialaccount-chatgpt:v1.5 -f Dockerfile .
-# 运行容器
-docker run -itd -p 8080:8080 --restart always -v /root/officialaccount/conf:/app/conf ptonlix/officialaccount-chatgpt:v1.5
-# 查看日志
-docker logs -f 6b05e1c81380
-```
-直接从docker hub下载
-```shell
-docker pull  ptonlix/officialaccount-chatgpt:v1.5 
+docker build -t ptonlix/officialaccount-chatgpt:v1.8 -f Dockerfile .
+
+# 或者直接从docker hub下载
+docker pull  ptonlix/officialaccount-chatgpt:v1.8 
+
+# 生成网络
+docker network create test-network
+
+# 运行Redis Redis可以自行部署，修改app.conf中配置项即可
+docker pull redis
+
+docker run -p 6379:6379 --name redis \
+--network test-network \
+--network-alias redis \
+-v /e/Docker/redis/conf/redis.conf:/etc/redis/redis.conf \
+-v /e/Docker/redis/data:/data \
+-d redis redis-server /etc/redis/redis.conf \
+--appendonly yes 
 
 # 运行容器
-docker run -itd -p 8080:8080 --restart always -v /root/officialaccount/conf:/app/conf ptonlix/officialaccount-chatgpt:v1.5
+docker run -itd -p 8080:8080 --network test-network --restart always -v /root/officialaccount/conf:/app/conf ptonlix/officialaccount-chatgpt:v1.8
 
 # 查看日志
 docker logs -f 6b05e1c81380
@@ -143,11 +157,15 @@ docker logs -f 6b05e1c81380
 
 ## 05.体验环境
 附上我自己的公众号，关注后直接输入即可体验ChatGPT，欢迎大家体验  
-欢迎大家加我个人微信，讨论ChatGPT问题和更多的实际应用
+欢迎大家加我个人微信，讨论ChatGPT问题和更多的实际应用  
+
+**创作不易，目前都是使用个人账户，您可以使用一杯咖啡的钱支持我，后续提供给大家更好的体验！感谢支持！**
+
 <p>
 	<p align="center">
 		<img height=280 src="./doc/image/wx.jpg">
 		<img height=280 src="./doc/image/pwx.jpg">
+		<img height=280 src="./doc/image/zfb.jpg">
 	</p>
 </p>
 
@@ -163,8 +181,12 @@ docker logs -f 6b05e1c81380
 2. 优化公众号展示效果 ✔️ 
 3. 增加失败重试机制✔️ 
 
-2023.2.18更新：
-1.支持联系上下文：计划支持6轮
+2023.2.18更新：  
+1. 支持联系上下文 ✔️
+
+后续计划，主要能减少API请求次数：
+1. 缓存优化，保留热点请求  🕐 
+2. 热点请求语意匹配分析  🕐 
 
 欢迎大家加我个人微信，人多我会组一个群，大家可以一起讨论ChatGPT，有机会可以一起做些事情。  
 感谢大家支持！  
