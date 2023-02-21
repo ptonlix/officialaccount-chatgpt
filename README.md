@@ -2,7 +2,7 @@
 English | [简体中文](./README-zh.md)
 <p>
 	<p align="center">
-		<img height=280 src="./doc/image/gopher.png">
+		<img height=280 src="https://img.gejiba.com/images/8169bc02b80f6f5985f52dd1acb2b5f1.png">
 	</p>
 	<p align="center">
 		<font size=6 face="宋体">微信公众号体验ChatGPT</font>
@@ -163,9 +163,9 @@ docker logs -f 6b05e1c81380
 
 <p>
 	<p align="center">
-		<img height=280 src="./doc/image/wx.jpg">
-		<img height=280 src="./doc/image/pwx.jpg">
-		<img height=280 src="./doc/image/zfb.jpg">
+		<img height=280 src="https://img.gejiba.com/images/e024970f799a47274916ef19dcd22f0f.jpg">
+		<img height=280 src="https://img.gejiba.com/images/1026e41343e378d022a33a3b80aa1abc.jpg">
+		<img height=280 src="https://img.gejiba.com/images/f3ad3166fef11d040fa041272a6dcbd1.jpg">
 	</p>
 </p>
 
