@@ -10,6 +10,7 @@ type ChatgptConfig struct {
 	Model       string
 	MaxTokens   int
 	Temperature float64
+	Url         string
 }
 
 var ChatGptConf ChatgptConfig
@@ -33,4 +34,9 @@ func init() {
 	if err != nil {
 		logs.Error("ChatGpt配置加载失败: Temperature")
 	}
+	ChatGptConf.Url, err = beego.AppConfig.String("gpturl")
+	if err != nil {
+		logs.Error("ChatGpt配置加载失败: Url")
+	}
+
 }

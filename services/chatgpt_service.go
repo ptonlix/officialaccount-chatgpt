@@ -16,7 +16,7 @@ import (
 type ChatGptService struct {
 }
 
-const BASEURL = "https://api.openai.com/v1/"
+var BASEURL = chatgpt.ChatGptConf.Url
 
 // ChatGPTResponseBody 请求体
 type ChatGPTResponseBody struct {
